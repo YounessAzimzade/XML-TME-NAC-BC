@@ -1,0 +1,1 @@
+In this part, the discovery cohort is named first half (FHalf or fh) and the validation is named second half (sHalf or sh). The codes and the data have exactly the same structure but not commented similarly.
