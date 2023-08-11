@@ -100,19 +100,19 @@ fit <- subset(fit, `Cell Type` != "CAFs" & `Cell Type` != "PVLs" & `Cell Type` !
                 `Cell Type` != "Normal.Epi" & `Cell Type` != "BCells" & `Cell Type` != "Endothelials" & 
                 `Cell Type` != "Myeloids" & `Cell Type` != "Cancer.Cells")
 
-# Normalize and calculate association score  
-fit$`Association Score`<-fit$Coef/(quantile(fit$Coef,probs=0.95))  
-fit$`Association Score`[fit$`Association Score`>1] <- 1
-fit$`Association Score`[fit$`Association Score`<  -1] <- -1 
+# Normalize and calculate pCR Score  
+fit$`pCR Score`<-fit$Coef/(quantile(fit$Coef,probs=0.95))  
+fit$`pCR Score`[fit$`pCR Score`>1] <- 1
+fit$`pCR Score`[fit$`pCR Score`<  -1] <- -1 
 
 # Update the CI scales
-fit$LI <- fit$LI*(fit$`Association Score`/fit$Coef)  
-fit$HI <- fit$HI*(fit$`Association Score`/fit$Coef) 
+fit$LI <- fit$LI*(fit$`pCR Score`/fit$Coef)  
+fit$HI <- fit$HI*(fit$`pCR Score`/fit$Coef) 
 
 # Plot Fig2
 pdf("~/Fig2.pdf", width = 20, height = 10.5)
 ggplot(fit)+
-  geom_bar(aes(x=`Cell Type`, y=`Association Score`, fill= as.factor(Sign)),stat="identity",width = 0.8)+ 
+  geom_bar(aes(x=`Cell Type`, y=`pCR Score`, fill= as.factor(Sign)),stat="identity",width = 0.8)+ 
   geom_errorbar( aes(x=`Cell Type`, ymin=LI, ymax=HI), width=0.3, colour="black", alpha=0.9, size=1)+
   theme_bw()+theme(text=element_text(size=30))+theme(axis.text.x=element_text(angle=90))+
   theme(legend.position="none")+
